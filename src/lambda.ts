@@ -3,4 +3,4 @@ import fastify from "./app";
 
 const proxy = awsLambdaFastify(fastify);
 
-export default proxy;
+export const lambdaHandler = proxy;
