@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "ts-node src/app.ts",
+    "start:ts": "ts-node",
     "build": "yarn prebuild && esbuild src/lambda.ts --bundle --sourcemap --minify --analyze --platform=node --target=es2020 --outfile=dist/index.js --external:pg-hstore",
     "prebuild": "rm -rf dist",
     "postbuild": "cd dist && zip -r index.zip ./*"
