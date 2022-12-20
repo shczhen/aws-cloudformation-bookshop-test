@@ -15,6 +15,9 @@ export class Book {
   })
   type!: string;
 
+  @Column()
+  publish_at!: string;
+
   @Column("int")
   stock!: number;
 
