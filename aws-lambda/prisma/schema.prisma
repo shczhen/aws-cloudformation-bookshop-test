@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity", "interactiveTransactions"]
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
 // TiDB is highly compatible with the MySQL 5.7 protocol and the common features 
