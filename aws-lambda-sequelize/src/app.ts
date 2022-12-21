@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 
 import { bookRoutes } from "./routers/book";
+import { getBookRoutes } from "./routers/getBook";
 
 // fastify.get("/", async (request, reply) => {
 //   reply.type("application/json").code(200);
@@ -13,12 +14,6 @@ export default function init() {
     logger: true,
   });
   app.register(bookRoutes);
-  // app.all("/book", async (request, reply) => {
-  //   reply
-  //     .type("application/json")
-  //     .code(200)
-  //     .send(JSON.stringify({ book: "book", method: `${request.method}` }));
-  // });
   app.all("/book/:id", async (request, reply) => {
     const { id } = request.params as any;
     reply
@@ -32,9 +27,17 @@ export default function init() {
   return app;
 }
 
+export function getBook() {
+  const app = Fastify({
+    logger: true,
+  });
+  app.register(getBookRoutes);
+  return app;
+}
+
 if (require.main === module) {
   console.log("Running as a script");
-  init().listen({ port: 3000 }, (err, address) => {
+  getBook().listen({ port: 3000 }, (err, address) => {
     if (err) throw err;
     // Server is now listening on ${address}
   });
