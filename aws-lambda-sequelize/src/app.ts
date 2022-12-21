@@ -3,6 +3,7 @@ import Fastify from "fastify";
 import { bookRoutes } from "./routers/book";
 import { getBookRoutes } from "./routers/getBook";
 import { postBookRoutes } from "./routers/postBook";
+import { updateBookRoutes } from "./routers/putBook";
 
 // fastify.get("/", async (request, reply) => {
 //   reply.type("application/json").code(200);
@@ -48,9 +49,18 @@ export function postBook() {
   return app;
 }
 
+// PUT /book/:id
+export function putBook() {
+  const app = Fastify({
+    logger: true,
+  });
+  app.register(updateBookRoutes);
+  return app;
+}
+
 if (require.main === module) {
   console.log("Running as a script");
-  postBook().listen({ port: 3000 }, (err, address) => {
+  putBook().listen({ port: 3000 }, (err, address) => {
     if (err) throw err;
     // Server is now listening on ${address}
   });
