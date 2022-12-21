@@ -44,7 +44,7 @@
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "64",
-      "Default": "shczhen-test"
+      "Default": "tidbcloud-aws-ecosys"
     },
     "S3Key": {
       "Description": "S3 Key",
