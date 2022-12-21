@@ -1,40 +1,37 @@
-import Fastify from "fastify";
+import Fastify, { FastifyInstance, FastifyRequest } from "fastify";
 
-import { bookRoutes } from "./routers/book";
 import { getBookRoutes } from "./routers/getBook";
 import { postBookRoutes } from "./routers/postBook";
 import { updateBookRoutes } from "./routers/putBook";
+import { deleteBookRoutes } from "./routers/deleteBook";
 
-// fastify.get("/", async (request, reply) => {
-//   reply.type("application/json").code(200);
-//   reply.send({ hello: "world" });
-//   // return { hello: "world" };
-// });
+async function commonRoutes(fastify: FastifyInstance, options: any) {
+  fastify.all(`/`, async (request, reply) => {
+    reply.type("application/json").code(200);
+    reply.send({ hello: "world" });
+    return { hello: "world" };
+  });
 
-export default function init() {
-  const app = Fastify({
+  fastify.all(`/healthy`, async (request, reply) => {
+    reply.type("application/json").code(200);
+    const resData = { healthy: true, timestamp: new Date().getTime() };
+    reply.send(resData);
+    return resData;
+  });
+}
+
+function initFastify() {
+  const fastify = Fastify({
     logger: true,
   });
-  app.register(bookRoutes);
-  app.all("/book/:id", async (request, reply) => {
-    const { id } = request.params as any;
-    reply
-      .type("application/json")
-      .code(200)
-      .send(
-        JSON.stringify({ book: "book", id: id, method: `${request.method}` })
-      );
-  });
-  app.all("/", (request, reply) => reply.send({ hello: "world" }));
-  return app;
+  fastify.register(commonRoutes);
+  return fastify;
 }
 
 // GET /book
 // GET /book/:id
 export function getBook() {
-  const app = Fastify({
-    logger: true,
-  });
+  const app = initFastify();
   app.register(getBookRoutes);
   return app;
 }
@@ -42,25 +39,28 @@ export function getBook() {
 // POST /book
 // POST /book/init
 export function postBook() {
-  const app = Fastify({
-    logger: true,
-  });
+  const app = initFastify();
   app.register(postBookRoutes);
   return app;
 }
 
 // PUT /book/:id
 export function putBook() {
-  const app = Fastify({
-    logger: true,
-  });
+  const app = initFastify();
   app.register(updateBookRoutes);
+  return app;
+}
+
+// DELETE /book/:id
+export function deleteBook() {
+  const app = initFastify();
+  app.register(deleteBookRoutes);
   return app;
 }
 
 if (require.main === module) {
   console.log("Running as a script");
-  putBook().listen({ port: 3000 }, (err, address) => {
+  initFastify().listen({ port: 3000 }, (err, address) => {
     if (err) throw err;
     // Server is now listening on ${address}
   });
