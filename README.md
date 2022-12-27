@@ -215,7 +215,7 @@ curl https://<your-api-endpoint>/book/1
 ### Post a new book
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{ "title": "Book Title", "type": "Test", "publishAt": "2022-12-15T21:01:49.000Z", "stock": "123", "price": "12.34", "authors": "Test Test" }' https://<your-api-endpoint>/book
+curl -X POST -H "Content-Type: application/json" -d '{ "title": "Book Title", "type": "Test", "publishAt": "2022-12-15T21:01:49.000Z", "stock": 123, "price": 12.34, "authors": "Test Test" }' https://<your-api-endpoint>/book
 ```
 
 ### Delete a book by id
