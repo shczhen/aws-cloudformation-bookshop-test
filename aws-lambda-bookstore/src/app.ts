@@ -32,6 +32,7 @@ export function initFastify() {
   return fastify;
 }
 
+// For local develop only
 if (require.main === module) {
   console.log("Running as a script");
   initFastify().listen({ port: 3000 }, (err, address) => {
