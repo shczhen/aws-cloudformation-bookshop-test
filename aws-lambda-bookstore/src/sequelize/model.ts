@@ -41,7 +41,7 @@ export function getBookModel(sequelize: Sequelize) {
     {
       // Other model options go here
       sequelize, // We need to pass the connection instance
-      modelName: "lambda_book", // We need to choose the model name
+      modelName: "book", // We need to choose the model name
       engine: "MYISAM",
     }
   );
