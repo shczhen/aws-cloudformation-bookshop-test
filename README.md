@@ -216,6 +216,12 @@ curl https://<your-api-endpoint>/book
 curl https://<your-api-endpoint>/book/1
 ```
 
+### Update a book by id
+
+```bash
+curl -X PUT -H "Content-Type: application/json" -d '{ "title": "Book Title(updated)" }' https://<your-api-endpoint>/book/1
+```
+
 ### Post a new book
 
 ```bash
